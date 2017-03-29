@@ -9,6 +9,11 @@ Firebase with Observables, Type Checking of Schema, Zone.js aware and Angular re
 
 TypeScript@2.1.0 and angular@4.0.0 are required.
 
+TypeScript Docs:
+
+- [firebase-rxjs](https://blaugold.github.io/firebase-rxjs/firebase-rxjs/)
+- [firebase-rxjs-angular](https://blaugold.github.io/firebase-rxjs/firebase-rxjs-angular/)
+
 ```bash
 npm install --save firebase-rxjs
 # For angular module
