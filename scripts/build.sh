@@ -18,7 +18,7 @@ build () {
 buildJS () {
     echo "Building js for $1"
     ${BIN}/ngc -p ${PKGS}/$1/tsconfig.dist.json
-    ${BIN}/cpy README.md ${PKGS}/$1/package.json dist/packages/$1
+    ${BIN}/cpy README.md CHANGELOG.md ${PKGS}/$1/package.json dist/packages/$1
 }
 
 bundle() {
