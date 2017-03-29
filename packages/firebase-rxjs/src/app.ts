@@ -4,29 +4,9 @@ import { FirebaseAuth } from './auth'
 import { FirebaseDatabase } from './database'
 import { NativeFirebaseApp } from './native-firebase'
 import { ZoneHelper } from './zone-helper'
+import { Extras, FirebaseAppConfig } from './interfaces'
 
 let lastAppId = 0
-
-export interface FirebaseAppConfig {
-  /**
-   * Name of the app internally used by firebase. If non is given one will be generated.
-   */
-  name?: string
-  /**
-   * Firebase App configuration.
-   */
-  options: {
-    apiKey: string
-    authDomain?: string
-    databaseURL?: string
-    storageBucket?: string
-    messagingSenderId?: string
-  }
-}
-
-export interface Extras {
-  firebaseZone?: any
-}
 
 export class FirebaseApp {
   nativeApp: NativeFirebaseApp

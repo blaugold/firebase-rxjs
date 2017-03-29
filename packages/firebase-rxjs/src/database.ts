@@ -5,25 +5,16 @@ import { map } from 'rxjs/operator/map'
 import { mapTo } from 'rxjs/operator/mapTo'
 import { Subscriber } from 'rxjs/Subscriber'
 import { FirebaseApp } from './app'
+import { DataSnapshotObservable, makeDataSnapshotObservable } from './data-snapshot-observable'
 import {
   DataSnapshot,
-  DataSnapshotObservable,
-  makeDataSnapshotObservable, Priority
-} from './data-snapshot-observable'
+  EventType,
+  NativeDatabaseRef,
+  Priority,
+  Query,
+  TransactionResult
+} from './interfaces'
 import { NativeFirebaseDatabase } from './native-firebase'
-
-export type NativeDatabaseRef = database.Reference
-export type Query = database.Query
-
-/**
- * Events which can be listened for.
- */
-export type EventType =
-  'value'
-  | 'child_added'
-  | 'child_changed'
-  | 'child_removed'
-  | 'child_moved'
 
 /**
  * Enum of event types.
@@ -207,11 +198,6 @@ export class FirebaseQuery<T> {
       }
     })
   }
-}
-
-export interface TransactionResult<T> {
-  committed: boolean,
-  snapshot: DataSnapshot<T> | null
 }
 
 export class FirebaseDatabaseRef<T> extends FirebaseQuery<T> {

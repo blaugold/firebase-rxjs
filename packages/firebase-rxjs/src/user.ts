@@ -2,11 +2,8 @@ import { auth, User, UserInfo } from 'firebase'
 import { Observable } from 'rxjs/Observable'
 import { map } from 'rxjs/operator/map'
 import { FirebaseApp } from './app'
-import { AuthErrorCodeType } from './auth'
-import { FirebaseError } from './native-firebase'
-import { AuthCredential } from './reexports'
+import { AuthCredential, UserCredential } from './interfaces'
 
-export type UserCredential = auth.UserCredential;
 
 export class FirebaseUserCredential {
   credential?: AuthCredential;
@@ -16,66 +13,6 @@ export class FirebaseUserCredential {
     this.credential = cred.credential || undefined;
     this.user       = cred.user ? new FirebaseUser(cred.user, app) : undefined;
   }
-}
-
-export interface DeleteUserError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/requires-recent-login'
-}
-
-export interface LinkUserError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/provider-already-linked'
-    | 'auth/invalid-credential'
-    | 'auth/credential-already-in-use'
-    | 'auth/email-already-in-use'
-    | 'auth/operation-not-allowed'
-    | 'auth/invalid-email'
-    | 'auth/wrong-password'
-}
-
-export interface LinkUserWithPopupError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/auth-domain-config-required'
-    | 'auth/cancelled-popup-request'
-    | 'auth/credential-already-in-use'
-    | 'auth/email-already-in-use'
-    | 'auth/operation-not-allowed'
-    | 'auth/popup-blocked'
-    | 'auth/operation-not-supported-in-this-environment'
-    | 'auth/popup-closed-by-user'
-    | 'auth/provider-already-linked'
-    | 'auth/unauthorized-domain'
-}
-
-export interface LinkUserWithRedirectError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/auth-domain-config-required'
-    | 'auth/operation-not-supported-in-this-environment'
-    | 'auth/provider-already-linked'
-    | 'auth/unauthorized-domain'
-}
-
-export interface ReauthenticateError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/user-mismatch'
-    | 'auth/user-not-found'
-    | 'auth/invalid-credential'
-    | 'auth/invalid-email'
-    | 'auth/wrong-password'
-}
-
-export interface UpdateEmailError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/invalid-email'
-    | 'auth/email-already-in-use'
-    | 'auth/requires-recent-login'
-}
-
-export interface UpdatePasswordError extends FirebaseError {
-  code: AuthErrorCodeType
-    | 'auth/weak-password'
-    | 'auth/requires-recent-login'
 }
 
 export class FirebaseUser {

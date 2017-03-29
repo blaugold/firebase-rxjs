@@ -3,35 +3,7 @@ import { Observable } from 'rxjs/Observable'
 import { map } from 'rxjs/operator/map'
 import { mergeMap } from 'rxjs/operator/mergeMap'
 import { toArray } from 'rxjs/operator/toArray'
-import { FirebaseDatabaseRef } from './database'
-
-export type Priority = number | string | null
-
-export interface PriorityField {
-  '.priority'?: Priority // TODO define Priority type
-}
-
-export type ExportedSnapshot<T> = {
-  [P in keyof T]: ExportedSnapshot<T[P]>
-} & PriorityField
-
-// Implements firebase.database.DataSnapshot but with some changes which TypeScript can't express.
-export interface DataSnapshot<T> {
-  child<P extends keyof T>(path: P): DataSnapshot<T[P]>;
-  exists(): boolean;
-  exportVal(): ExportedSnapshot<T>;
-  forEach(action: (a: DataSnapshot<T[keyof T]>) => boolean): boolean;
-  getPriority(): Priority;
-  hasChild(path: keyof T): boolean;
-  hasChildren(): boolean;
-  key: string | null;
-  numChildren(): number;
-  ref: FirebaseDatabaseRef<T>;
-  toJSON(): T | null;
-  val(): T | null;
-
-  prevKey?: string;
-}
+import { DataSnapshot, ExportedSnapshot, Priority } from './interfaces'
 
 export function makeDataSnapshotObservable<T>(observable: Observable<DataSnapshot<T>>): DataSnapshotObservable<T> {
   return new DataSnapshotObservable<T>(subscriber => {

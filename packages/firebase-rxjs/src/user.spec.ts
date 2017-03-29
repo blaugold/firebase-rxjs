@@ -1,4 +1,4 @@
-import { async, asyncEvents } from '../testing/jasmine'
+import { async } from '../testing/jasmine'
 import { FirebaseApp } from './app'
 import { FirebaseAuth } from './auth'
 import { FirebaseUser } from './user'
