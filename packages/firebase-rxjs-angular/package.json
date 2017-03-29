@@ -1,0 +1,21 @@
+{
+  "name": "firebase-rxjs-angular",
+  "version": "<--VERION_PLACEHOLDER-->",
+  "main": "./bundles/firebase-rxjs-angular.umd.js",
+  "module": "./firebase-rxjs-angular.js",
+  "typings": "./firebase-rxjs-angular.d.ts",
+  "author": "Gabriel Terwesten <gabriel@terwesten.net>",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "firebase-rxjs": "^0.1.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blaugold/firebase-rxjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blaugold/firebase-rxjs/issues"
+  },
+  "homepage": "https://github.com/blaugold/firebase-rxjs#readme"
+}

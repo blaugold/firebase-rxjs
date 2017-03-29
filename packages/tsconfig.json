@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "traceResolution": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "../dist/all",
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "rxjs/*": [
+        "../node_modules/rxjs/*"
+      ],
+      "*": [
+        "./*"
+      ]
+    },
+    "rootDir": ".",
+    "lib": [
+      "es6",
+      "dom"
+    ],
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "target": "es5",
+    "types": [
+      "zone.js",
+      "jasmine"
+    ]
+  }
+}

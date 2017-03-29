@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "../../dist/packages/firebase-rxjs",
+    "paths": {
+      "rxjs/*": [
+        "../../node_modules/rxjs/*"
+      ],
+      "firebase": [
+        "../../node_modules/firebase"
+      ]
+    },
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "declaration": true,
+    "stripInternal": true,
+    "sourceMap": true,
+    "inlineSources": true,
+    "module": "es2015",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2015.collection",
+      "es2015.promise"
+    ],
+    "types": []
+  },
+  "files": [
+    "firebase-rxjs.ts",
+    "../../node_modules/zone.js/dist/zone.js.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true
+  }
+}

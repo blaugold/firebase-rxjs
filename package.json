@@ -1,0 +1,77 @@
+{
+  "name": "firebase-rxjs",
+  "version": "0.1.0",
+  "description": "Firebase with Observables, Type Checking of Schema, Zone.js aware and Angular ready.",
+  "keywords": [
+    "Firebase",
+    "zone.js",
+    "Observables",
+    "TypeScript",
+    "Schema",
+    "Static Typing",
+    "RxJS"
+  ],
+  "main": "./bundles/firebase-rxjs.umd.js",
+  "module": "./bundles/firebase-rxjs.es5.js",
+  "es2015": "./index.js",
+  "typings": "./index.d.ts",
+  "scripts": {
+    "typedoc": "typedoc",
+    "predoc": "rimraf docs",
+    "doc": "npm run typedoc -- --options typedoc.json packages/firebase-rxjs/firebase-rxjs.ts packages/firebase-rxjs-angular/firebase-rxjs-angular.ts",
+    "upload-coverage": "coveralls < coverage/lcov.info",
+    "karma": "karma start",
+    "test": "COVERAGE=true npm run karma -- --single-run",
+    "e2e": "./scripts/e2e-test.sh",
+    "build": "./scripts/build.sh",
+    "release": "standard-version"
+  },
+  "author": "Gabriel Terwesten <gabriel@terwesten.net>",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/core": "^4.0.0",
+    "firebase": "^3.7.0",
+    "rxjs": "^5.0.0",
+    "zone.js": "^0.8.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
+    "@angular/compiler-cli": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@types/jasmine": "^2.5.46",
+    "@types/node": "^7.0.12",
+    "awesome-typescript-loader": "^3.1.2",
+    "core-js": "^2.4.1",
+    "coveralls": "^2.12.0",
+    "cpy-cli": "^1.0.1",
+    "jasmine": "^2.5.3",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-mocha-reporter": "^2.2.3",
+    "karma-remap-istanbul": "^0.6.0",
+    "karma-webpack": "^2.0.3",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "sourcemap-istanbul-instrumenter-loader": "^0.2.0",
+    "standard-version": "^4.0.0",
+    "typedoc": "^0.5.9",
+    "typescript": "^2.2.2",
+    "uglifyjs": "^2.4.10",
+    "webpack": "^2.3.2"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blaugold/firebase-rxjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blaugold/firebase-rxjs/issues"
+  },
+  "homepage": "https://github.com/blaugold/firebase-rxjs#readme"
+}

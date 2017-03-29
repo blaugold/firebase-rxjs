@@ -1,0 +1,33 @@
+{
+  "name": "firebase-rxjs",
+  "version": "<--VERION_PLACEHOLDER-->",
+  "description": "Firebase with Observables and Database Schema Static Typing + zone.js aware.",
+  "keywords": [
+    "Firebase",
+    "Zone.js",
+    "Observable",
+    "TypeScript",
+    "Schema",
+    "Static Typing",
+    "RxJS"
+  ],
+  "main": "./bundles/firebase-rxjs.umd.js",
+  "module": "./firebase-rxjs.js",
+  "typings": "./firebase-rxjs.d.ts",
+  "author": "Gabriel Terwesten <gabriel@terwesten.net>",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^3.7.0"
+  },
+  "peerDependencies": {
+    "rxjs": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blaugold/firebase-rxjs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/blaugold/firebase-rxjs/issues"
+  },
+  "homepage": "https://github.com/blaugold/firebase-rxjs#readme"
+}

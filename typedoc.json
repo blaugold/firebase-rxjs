@@ -1,0 +1,26 @@
+{
+  "mode": "file",
+  "theme": "minimal",
+  "ignoreCompilerErrors": true,
+  "experimentalDecorators": true,
+  "emitDecoratorMetadata": true,
+  "target": "ES6",
+  "moduleResolution": "node",
+  "preserveConstEnums": true,
+  "stripInternal": true,
+  "suppressExcessPropertyErrors": true,
+  "suppressImplicitAnyIndexErrors": true,
+  "module": "ES6",
+  "exclude": "**/*.spec.ts",
+  "excludePrivate": true,
+  "excludeExternals": false,
+  "excludeNotExported": true,
+  "pretty": true,
+  "gaID": "UA-87346670-1",
+  "lib": [
+    "es6"
+  ],
+  "files": [
+    "./node_modules/zone.js/dist/zone.js.d.ts"
+  ]
+}
