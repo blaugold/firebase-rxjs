@@ -43,6 +43,8 @@ auth.createUserWithEmailAndPassword("...", "...").subscribe(user => {
 })
 ```
 
+## Usage
+
 To get static type checking when accessing the database define a database schema interface.
 Its best to compose the schema out of smaller interfaces. This keeps your schema clear and
 allows you to easily access subsections with `db.ref<SubSchema>('path/to/something')`.
