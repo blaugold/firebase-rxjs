@@ -1,7 +1,5 @@
 import { auth } from 'firebase'
-import { ExtendedDataSnapshot } from './data-snapshot-observable'
-
-export type DataSnapshot = ExtendedDataSnapshot
+export { DataSnapshot } from './data-snapshot-observable'
 
 export type AuthProvider = auth.AuthProvider
 export type AuthCredential = auth.AuthCredential

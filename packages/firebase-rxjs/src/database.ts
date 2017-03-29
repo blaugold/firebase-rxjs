@@ -1,17 +1,16 @@
 import { database } from 'firebase'
 import { Observable } from 'rxjs/Observable'
 import { of } from 'rxjs/observable/of'
+import { map } from 'rxjs/operator/map'
 import { mapTo } from 'rxjs/operator/mapTo'
-import { take } from 'rxjs/operator/take'
 import { Subscriber } from 'rxjs/Subscriber'
 import { FirebaseApp } from './app'
 import {
+  DataSnapshot,
   DataSnapshotObservable,
-  ExtendedDataSnapshot,
-  makeDataSnapshotObservable
+  makeDataSnapshotObservable, Priority
 } from './data-snapshot-observable'
 import { NativeFirebaseDatabase } from './native-firebase'
-import { DataSnapshot } from './reexports'
 
 export type NativeDatabaseRef = database.Reference
 export type Query = database.Query
@@ -154,11 +153,14 @@ export class FirebaseQuery<T> {
     return this.getQueryOrRef().isEqual(query.getQueryOrRef())
   }
 
-  private _once(event: string): Observable<ExtendedDataSnapshot> {
-    return this.app.zoneHelper.wrapPromise(() => this.getQueryOrRef().once(event))
+  private _once(event: string): Observable<DataSnapshot<T>> {
+    return map.call(
+      this.app.zoneHelper.wrapPromise(() => this.getQueryOrRef().once(event)),
+      (nativeSnapshot: any) => this.makeDataSnapshot(nativeSnapshot)
+    )
   }
 
-  private _on(event: string): Observable<ExtendedDataSnapshot> {
+  private _on(event: string): Observable<DataSnapshot<T>> {
     return this.app.zoneHelper.createObservable(sub => {
       const cb = this.getQueryOrRef().on(
         event, this.getEventHandler(sub),
@@ -169,10 +171,19 @@ export class FirebaseQuery<T> {
     })
   }
 
+  protected makeDataSnapshot(snapshot: any, prevKey?: string) {
+    if (typeof prevKey !== 'undefined') {
+      snapshot.prevKey = prevKey
+    }
+    Object.defineProperty(snapshot, 'ref', {
+      get: () => this
+    })
+    return snapshot
+  }
+
   private getEventHandler(sub: Subscriber<any>, complete?: boolean) {
-    return (snapshot: DataSnapshot, prevKey: any) => {
-      (snapshot as DataSnapshot).prevKey = prevKey
-      sub.next(snapshot)
+    return (snapshot: any, prevKey: any) => {
+      sub.next(this.makeDataSnapshot(snapshot, prevKey))
       if (complete) {
         sub.complete()
       }
@@ -198,6 +209,11 @@ export class FirebaseQuery<T> {
   }
 }
 
+export interface TransactionResult<T> {
+  committed: boolean,
+  snapshot: DataSnapshot<T> | null
+}
+
 export class FirebaseDatabaseRef<T> extends FirebaseQuery<T> {
 
   get key(): string | null {
@@ -220,14 +236,14 @@ export class FirebaseDatabaseRef<T> extends FirebaseQuery<T> {
     return this.app.zoneHelper.wrapPromise<void>(() => this._ref.set(value))
   }
 
-  setPriority(priority: string | number | null): Observable<void> {
+  setPriority(priority: Priority): Observable<void> {
     // There seems to be a bug with the typing for #setPriority(priority, onComplete): Promise
     // The firebase library, in every other case, declares the onComplete function optional since a
     // Promise is returned as well.
     return this.app.zoneHelper.wrapPromise<void>(() => (this._ref as any).setPriority(priority))
   }
 
-  setWithPriority(newVal: T, priority: string | number | null): Observable<void> {
+  setWithPriority(newVal: T, priority: Priority): Observable<void> {
     return this.app.zoneHelper.wrapPromise<void>(() => this._ref.setWithPriority(newVal, priority))
   }
 
@@ -252,17 +268,19 @@ export class FirebaseDatabaseRef<T> extends FirebaseQuery<T> {
   }
 
   transaction(transactionHandler: (node: T | null) => T | null | never,
-              applyLocally?: boolean): Observable<{
-    committed: boolean, snapshot: DataSnapshot
-      | null
-  }> {
+              applyLocally?: boolean): Observable<TransactionResult<T>> {
     if (Zone) {
       transactionHandler = Zone.current.wrap(transactionHandler, 'firebaseRxJS.transaction')
     }
-    return this.app.zoneHelper.wrapPromise<{ committed: boolean, snapshot: DataSnapshot }>(
+    return this.app.zoneHelper.wrapPromise<TransactionResult<T>>(
       () => new Promise((resolve, reject) => this._ref.transaction(
         transactionHandler,
-        (err, committed, snapshot) => err ? reject(err) : resolve({ committed, snapshot }),
+        (err, committed, snapshot: any) => {
+          return err ? reject(err) : resolve({
+            committed,
+            snapshot: this.makeDataSnapshot(snapshot)
+          })
+        },
         applyLocally
       ))
     )
