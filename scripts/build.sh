@@ -8,13 +8,6 @@ BIN=${ROOT}/node_modules/.bin
 PKGS=${ROOT}/packages
 PKGS_DIST=${ROOT}/dist/packages
 
-build () {
-    buildJS $1
-    bundle $1
-    uglify $1
-    docs $1
-}
-
 buildJS () {
     echo "Building js for $1"
     ${BIN}/ngc -p ${PKGS}/$1/tsconfig.dist.json
@@ -34,13 +27,6 @@ uglify () {
         ${PKGS_DIST}/$1/bundles/$1.umd.js
 }
 
-docs () {
-    echo "Building docs for $1"
-    local DOCS_DIR=${ROOT}/docs/$1
-    rm -rf DOCS_DIR
-    ${BIN}/typedoc --options typedoc.json -out ${DOCS_DIR} ${PKGS}/$1/$1.ts
-}
-
 cleanDist () {
     echo "Cleaning dist folder"
     ${BIN}/rimraf ${PKGS_DIST}
@@ -53,8 +39,30 @@ cleanSrc () {
     ${BIN}/rimraf -rf "${PKGS}/**/*.{ngsummary.json,ngfactory.ts}"
 }
 
-cleanDist
-build firebase-rxjs
-build firebase-rxjs-angular
-${DIR}/version.js
-cleanSrc
+buildPkg () {
+    buildJS $1
+    bundle $1
+    uglify $1
+}
+
+build () {
+    cleanDist
+    buildPkg firebase-rxjs
+    buildPkg firebase-rxjs-angular
+    ${DIR}/version.js
+    cleanSrc
+}
+
+docsPkg () {
+    echo "Building docs for $1"
+    local DOCS_DIR=${ROOT}/docs/$1
+    rm -rf DOCS_DIR
+    ${BIN}/typedoc --options typedoc.json -out ${DOCS_DIR} ${PKGS}/$1/$1.ts
+}
+
+docs () {
+    docsPkg firebase-rxjs
+    docsPkg firebase-rxjs-angular
+}
+
+"$@"

@@ -16,14 +16,12 @@
   "es2015": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
-    "typedoc": "typedoc",
-    "predoc": "rimraf docs",
-    "doc": "npm run typedoc -- --options typedoc.json packages/firebase-rxjs/firebase-rxjs.ts packages/firebase-rxjs-angular/firebase-rxjs-angular.ts",
+    "docs": "./scripts/build.sh build docs",
     "upload-coverage": "coveralls < coverage/lcov.info",
     "karma": "karma start",
     "test": "COVERAGE=true npm run karma -- --single-run",
     "e2e": "./scripts/e2e-test.sh",
-    "build": "./scripts/build.sh",
+    "build": "./scripts/build.sh build",
     "release": "standard-version"
   },
   "author": "Gabriel Terwesten <gabriel@terwesten.net>",
