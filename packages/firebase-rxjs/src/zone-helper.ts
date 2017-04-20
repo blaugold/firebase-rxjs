@@ -8,7 +8,7 @@ export class ZoneHelper {
 
   constructor(private firebaseZone?: Zone) {
     if (!firebaseZone) {
-      if (Zone) {
+      if (typeof Zone !== 'undefined') {
         this.firebaseZone = Zone.root.fork({ name: 'firebase' })
       }
     }
@@ -29,7 +29,7 @@ export class ZoneHelper {
   }
 
   wrapPromise<T>(promiseFactory: () => firebase.Promise<T>): Observable<T> {
-    if (!Zone) {
+    if (typeof Zone === 'undefined') {
       return fromPromise(this.runInFirebase(promiseFactory) as Promise<T>)
     }
 
@@ -55,7 +55,7 @@ export class ZoneHelper {
   createObservable<T>(subscribe: (subscriber: Subscriber<T>) => TeardownLogic): Observable<T> {
     const obs = new Observable(this.wrapSubscribe(subscribe))
 
-    if (!Zone) {
+    if (typeof Zone === 'undefined') {
       return obs
     }
 
