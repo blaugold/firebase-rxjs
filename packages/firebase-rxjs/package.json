@@ -17,7 +17,7 @@
   "author": "Gabriel Terwesten <gabriel@terwesten.net>",
   "license": "MIT",
   "dependencies": {
-    "firebase": "^3.7.0"
+    "firebase": "^3.8.0"
   },
   "peerDependencies": {
     "rxjs": "^5.0.0"
