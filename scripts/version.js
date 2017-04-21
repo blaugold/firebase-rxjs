@@ -2,13 +2,15 @@
 
 const fs = require('fs');
 const path = require('path');
-const pkg = require('../package.json');
+const rootPkg = require('../package.json');
+
+const placeholder = /<--VERION_PLACEHOLDER-->/g;
 
 function replaceVersion(packageName) {
   const pkgPath = path.resolve('./dist/packages', packageName, 'package.json');
-  const p = JSON.parse(fs.readFileSync(pkgPath).toString());
-  p.version = pkg.version;
-  fs.writeFileSync(pkgPath, JSON.stringify(p, null, 2));
+  const pkgStr = fs.readFileSync(pkgPath).toString();
+  const pkgStrReplaced = pkgStr.replace(placeholder, rootPkg.version);
+  fs.writeFileSync(pkgPath, pkgStrReplaced);
 }
 
 replaceVersion('firebase-rxjs');

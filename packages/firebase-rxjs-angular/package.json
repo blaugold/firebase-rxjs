@@ -7,7 +7,7 @@
   "author": "Gabriel Terwesten <gabriel@terwesten.net>",
   "peerDependencies": {
     "@angular/core": "^4.0.0",
-    "firebase-rxjs": "^0.1.0"
+    "firebase-rxjs": "^<--VERION_PLACEHOLDER-->"
   },
   "license": "MIT",
   "repository": {
