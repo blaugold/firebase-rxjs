@@ -18,8 +18,10 @@
   "scripts": {
     "docs": "./scripts/build.sh build docs",
     "upload-coverage": "coveralls < coverage/lcov.info",
-    "karma": "karma start",
-    "test": "COVERAGE=true npm run karma -- --single-run",
+    "karma": "karma",
+    "test:with-zone": "COVERAGE=true karma start --single-run",
+    "test:no-zone": "karma start testing/karma.conf.no-zone.js --single-run",
+    "test": "npm run test:with-zone && npm run test:no-zone",
     "e2e": "./scripts/e2e-test.sh",
     "build": "./scripts/build.sh build",
     "release": "standard-version"

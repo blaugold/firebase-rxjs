@@ -24,7 +24,7 @@ declare var require: any;
 
 __karma__.loaded = function () {}
 
-const context = require.context('./', true, /\/.+\/src\/.+\.ts$/)
+const context = require.context('./', true, /\/.+\/src\/.+\.spec\.ts$/)
 
 context.keys().map(context)
 
