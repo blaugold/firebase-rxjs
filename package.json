@@ -1,6 +1,6 @@
 {
   "name": "firebase-rxjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Firebase with Observables, Type Checking of Schema, Zone.js aware and Angular ready.",
   "keywords": [
     "Firebase",
