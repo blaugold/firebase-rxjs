@@ -14,6 +14,13 @@ export class ZoneHelper {
     }
   }
 
+  wrap<F extends Function>(callback: F, source: string): F {
+    if (this.firebaseZone) {
+      return this.firebaseZone.wrap(callback, source)
+    }
+    return callback
+  }
+
   runInFirebase<T>(fn: () => T): T {
     if (this.firebaseZone) {
       return this.firebaseZone.run<T>(fn)

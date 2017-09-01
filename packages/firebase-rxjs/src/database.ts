@@ -256,7 +256,7 @@ export class FirebaseDatabaseRef<T> extends FirebaseQuery<T> {
   transaction(transactionHandler: (node: T | null) => T | null | never,
               applyLocally?: boolean): Observable<TransactionResult<T>> {
     if (Zone) {
-      transactionHandler = Zone.current.wrap(transactionHandler, 'firebaseRxJS.transaction')
+      transactionHandler = this.app.zoneHelper.wrap(transactionHandler, 'firebaseRxJS.transaction')
     }
     return this.app.zoneHelper.wrapPromise<TransactionResult<T>>(
       () => new Promise((resolve, reject) => this._ref.transaction(
